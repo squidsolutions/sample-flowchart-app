@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Demo App</title>
+	<link rel="stylesheet" type="text/css" href="app/style.css">
+	<!-- bower:css -->
+	<!-- endbower -->
+
+	<!-- bower:js -->
+	<!-- endbower -->
+	<script src="main.js"></script>
+</head>
+<body>
+	<div class="container" id="header">
+		<div class="row">
+			<div class="col-md-9">
+				<div id="status"></div>
+			</div>
+			<div class="col-md-3">
+				<div id="login"></div>
+			</div>
+		</div>
+	</div>
+	<div class="container hidden" id="main">
+		<div class="row">
+			<div class="col-md-3">
+				<h2>Period</h2>
+				<div id="date"></div>
+		    </div>
+			<div class="col-md-6">
+				<h2>Filters</h2>
+				<div id='selection'></div>
+			</div>
+			<div class="col-md-3">
+				<h2>Pivots</h2>
+				<span id='origin'></span>
+		    </div>
+		</div>
+		<div class="row">
+			<div class="col-md-12">
+		        <div class="collapse" id="picker"></div>
+		        <div class="collapse" id="filters"></div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-12">
+				<h2>Visitors' flow</h2>
+				<div id="main-content"></div>
+		    </div>
+		</div>
+	</div>
+	
+
+</body>
+</html>
