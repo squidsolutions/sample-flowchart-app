@@ -1,55 +1,55 @@
 $( document ).ready(function() {
     
-    var loginView, statusView, contentView, config;
+    var api = squid_api, loginView, statusView, contentView, config;
     
-    squid_api.setup({
+    api.setup({
         "apiUrl" : "api.squidsolutions.com",
         "clientId" : "local",
-        "projectId" : "squidflow",
+        "projectId" : "squidflow_demo",
         "domainId" : "usage",
         "selection" : null
     });
 
-    var analysis = new squid_api.controller.analysisjob.AnalysisModel();
+    var analysis = new api.model.AnalysisJob();
     analysis.setDimensionIds(["origin", "step0","step1","step2"]);
-    analysis.setMetricIds(["count", "searches"]);
+    analysis.setMetricIds(["count", "withFTA"]);
     
     /*
      * Declare the views 
      */
      
-    loginView = new squid_api.view.LoginView({
+    loginView = new api.view.LoginView({
         el : '#login',
         autoShow : false
     });
     
-    statusView = new squid_api.view.StatusView({
+    statusView = new api.view.StatusView({
         el : '#status'
     });
 
     /*
-    new squid_api.view.DataTableView({
+    new api.view.DataTableView({
     	el : "#main-content",
     	model : analysis
     })
     */
     
-    new squid_api.view.PeriodSelectionView({
+    new api.view.PeriodSelectionView({
         el : '#date',
         datePickerEl : $('#picker')
     });
     
-    new squid_api.view.FiltersSelectionView({
+    new api.view.FiltersSelectionView({
     	el : '#selection',
     	filtersEl : $('#filters')
     });
 
-    new squid_api.view.DimensionSelector({
+    new api.view.DimensionSelector({
         el : '#origin',
         model : analysis
     });
     
-    new squid_api.view.FlowChartView({
+    new api.view.FlowChartView({
         el : '#main-content',
         model : analysis
     });
@@ -58,28 +58,28 @@ $( document ).ready(function() {
      * Controller part
      */
     
-    squid_api.model.status.on('change', function(model){
+    api.model.status.on('change', function(model){
         // performed when the global status changes
         if (model.get("status") == model.STATUS_DONE) {
             $("#main").removeClass("hidden");
         }
     });
     
-    squid_api.model.project.on('change', function() {
-    	squid_api.controller.analysisjob.compute(analysis);
+    api.model.project.on('change', function() {
+    	api.compute(analysis);
     });
     
-    squid_api.model.filters.on('change:selection', function() {
-    	squid_api.controller.analysisjob.compute(analysis); 
+    api.model.filters.on('change:selection', function() {
+    	api.compute(analysis); 
     });
 
     // check for analysis origin update
     analysis.on('change:dimensions', function() {
-        squid_api.controller.analysisjob.compute(analysis);
+        api.compute(analysis);
     });
     
     /*
      * Start the App
      */
-    squid_api.init();
+    api.init();
 });
